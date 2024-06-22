@@ -1,0 +1,27 @@
+{
+  "name": "reviews-api",
+  "version": "0.1.0",
+  "description": "The API specification and implementation for the course reviews web application.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/auburnonlinecs/reviews-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/auburnonlinecs/reviews-api/issues"
+  },
+  "homepage": "https://github.com/auburnonlinecs/reviews-api#readme",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
