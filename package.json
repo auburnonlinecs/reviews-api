@@ -4,7 +4,8 @@
   "description": "The API specification and implementation for the course reviews web application.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "dev": "sls offline start"
   },
   "repository": {
     "type": "git",
@@ -18,10 +19,14 @@
   },
   "homepage": "https://github.com/auburnonlinecs/reviews-api#readme",
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.585.0",
+    "@aws-sdk/lib-dynamodb": "^3.585.0",
     "dotenv": "^16.4.5",
-    "express": "^4.19.2"
+    "serverless-http": "^3.2.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.4"
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.4",
+    "serverless-offline": "^13.6.0"
   }
 }

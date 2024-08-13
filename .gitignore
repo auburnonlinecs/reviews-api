@@ -1,5 +1,8 @@
 # Node Modules
 node_modules/
 
+# Serverless
+.serverless
+
 # ENV
 .env

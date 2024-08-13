@@ -1,0 +1,80 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: wareaglewebdev
+# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
+app: reviews
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: reviews-api
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: us-east-2
+  stage: ${opt:stage, 'dev'} # defaults to dev if none provided
+  environment:
+    DB_TABLE_NAME: ${self:custom.reviewsTableName}
+  tags:
+    env: ${self:provider.stage}
+
+# define custom variables here
+custom:
+  reviewsTableName: ${self:service}-reviewsTable-${self:provider.stage}
+
+functions:
+  hello:
+    handler: internal/handlers/hello.handleGetHello
+    events:
+      - httpApi:
+          path: /hello
+          method: get
+    # iamRoleStatements:
+    #   - Effect: "Allow"
+    #     Action:
+    #       - "dynamodb:GetItem"
+    #     Resource: !GetAtt ReviewsTable.Arn
+
+resources:
+  Resources:
+    ReviewsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:custom.reviewsTableName}
+        AttributeDefinitions:
+          - AttributeName: PartitionKey
+            AttributeType: S
+          - AttributeName: SortKey
+            AttributeType: S
+          - AttributeName: ProfessorId
+            AttributeType: S
+          - AttributeName: CourseId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: PartitionKey
+            KeyType: HASH
+          - AttributeName: SortKey
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        GlobalSecondaryIndexes:
+          - IndexName: ReviewsByProfessorIndex
+            KeySchema:
+              - AttributeName: ProfessorId
+                KeyType: HASH
+              - AttributeName: SortKey
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL
+            ProvisionedThroughput:
+              ReadCapacityUnits: 1
+              WriteCapacityUnits: 1
+          - IndexName: ReviewsByCourseIndex
+            KeySchema:
+              - AttributeName: CourseId
+                KeyType: HASH
+              - AttributeName: SortKey
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL
+            ProvisionedThroughput:
+              ReadCapacityUnits: 1
+              WriteCapacityUnits: 1
