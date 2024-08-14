@@ -14,6 +14,14 @@ provider:
     DB_TABLE_NAME: ${self:custom.reviewsTableName}
   tags:
     env: ${self:provider.stage}
+  httpApi:
+    name: ${self:provider.stage}-${self:service}
+    authorizers:
+      auth0Authorizer:
+        identitySource: "$request.header.Authorization"
+        issuerUrl: ${env:AUTH0_DOMAIN}
+        audience: 
+        - ${env:AUTH0_AUDIENCE}
 
 # define custom variables here
 custom:
@@ -24,8 +32,10 @@ functions:
     handler: internal/handlers/hello.handleGetHello
     events:
       - httpApi:
-          path: /hello
           method: get
+          path: /hello
+          authorizer:
+            name: auth0Authorizer
     # iamRoleStatements:
     #   - Effect: "Allow"
     #     Action:
