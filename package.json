@@ -1,0 +1,32 @@
+{
+  "name": "reviews-api",
+  "version": "0.1.0",
+  "description": "The API specification and implementation for the course reviews web application.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "dev": "sls offline start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/auburnonlinecs/reviews-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/auburnonlinecs/reviews-api/issues"
+  },
+  "homepage": "https://github.com/auburnonlinecs/reviews-api#readme",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.585.0",
+    "@aws-sdk/lib-dynamodb": "^3.585.0",
+    "dotenv": "^16.4.5",
+    "serverless-http": "^3.2.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.4",
+    "serverless-offline": "^13.6.0"
+  }
+}
